@@ -1,0 +1,88 @@
+<div>
+  <div>
+    <h1>Weather Forecast</h1>
+    
+    <%= form_with url: forecast_path, method: :get, local: true do |form| %>
+      <div>
+        <%= form.label :address, "Address"%>
+        <%= form.text_field :address %>
+      </div>
+      
+      <div>
+        <%= form.label :town, "Town"%>
+        <%= form.text_field :town%>
+      </div>
+      
+      <div>
+        <div>
+          <%= form.label :zipcode, "Zipcode"%>
+          <%= form.text_field :zipcode%>
+        </div>
+        
+        <div>
+          <%= form.label :state, "State"%>
+          <%= form.text_field :state%>
+        </div>
+      </div>
+      
+      <div>
+        <%= form.submit "Find Current Temperature"%>
+      </div>
+    <% end %>
+    
+    <% if @forecast_data %>
+      <div>
+        <h2>Current Weather</h2>
+        
+        <% if @from_cache %>
+          <div>
+            <span>Data retrieved from cache</span>
+          </div>
+        <% end %>
+        
+        <div>
+          <div>
+            <span>Location:</span>
+            <span><%= @forecast_data.dig("location", "name") %>, <%= @forecast_data.dig("location", "region") %></span>
+          </div>
+          
+          <div>
+            <span>Temperature:</span>
+            <span><%= @forecast_data.dig("current", "temperature") %>°F</span>
+          </div>
+          
+          <div>
+            <span>Feels Like:</span>
+            <span><%= @forecast_data.dig("current", "feelslike") %>°F</span>
+          </div>
+          
+          <div>
+            <span>Weather:</span>
+            <span><%= @forecast_data.dig("current", "weather_descriptions", 0) %></span>
+          </div>
+          
+          <div>
+            <span>Humidity:</span>
+            <span><%= @forecast_data.dig("current", "humidity") %>%</span>
+          </div>
+          
+          <div>
+            <span>Wind:</span>
+            <span><%= @forecast_data.dig("current", "wind_speed") %> mph <%= @forecast_data.dig("current", "wind_dir") %></span>
+          </div>
+          
+          <div>
+            <span>Observation Time:</span>
+            <span><%= @forecast_data.dig("current", "observation_time") %></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    
+    <% if @error %>
+      <div style="margin-top: 2rem; padding: 1rem; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px;">
+        <p style="color: #dc2626;"><%= @error %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

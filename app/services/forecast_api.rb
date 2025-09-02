@@ -23,16 +23,10 @@ class ForecastApi
   end
 
   def current_by_zipcode
-    response_body = response.body
-    Rails.logger.info "API Response: #{response_body}"
-    response_body
+    response.body
   end
 
   def response
-    Rails.logger.info "Making API request to: #{@url}"
-    response = HTTParty.get(@url)
-    Rails.logger.info "API Response Status: #{response.code}"
-    Rails.logger.info "API Response Headers: #{response.headers}"
-    response
+    HTTParty.get(@url)
   end
 end

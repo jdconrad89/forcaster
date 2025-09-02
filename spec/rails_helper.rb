@@ -60,10 +60,10 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-  
+
   # Include FactoryBot methods
   config.include FactoryBot::Syntax::Methods
-  
+
   # Clean up any stubs after each test
   config.after(:each) do
     ENV.unstub(:[]) if ENV.respond_to?(:unstub)

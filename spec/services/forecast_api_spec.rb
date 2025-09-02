@@ -5,7 +5,7 @@ RSpec.describe ForecastApi, type: :service do
   let(:endpoint) { "/current" }
   let(:api_key) { "test_api_key_123" }
   let(:forecast_api) { described_class.new(zipcode, endpoint) }
-  
+
   let(:mock_weather_response) do
     {
       "request" => {
@@ -81,14 +81,14 @@ RSpec.describe ForecastApi, type: :service do
   describe 'URL construction' do
     it 'maintains URL structure consistency' do
       url = forecast_api.instance_variable_get(:@url)
-      
+
       # Check URL components
       expect(url).to include(described_class::BASE_URI)
       expect(url).to include(endpoint)
       expect(url).to include("access_key=#{api_key}")
       expect(url).to include("units=f")
       expect(url).to include("query=#{zipcode}")
-      
+
       # Check URL format
       expect(url).to match(/^http?:\/\/.*\?.*&.*/)
     end
@@ -135,7 +135,7 @@ RSpec.describe ForecastApi, type: :service do
     it 'returns response body from current_by_zipcode' do
       allow(mock_response).to receive(:body).and_return(mock_weather_response)
       allow(Rails.logger).to receive(:info)
-      
+
       expect(forecast_api.current_by_zipcode).to eq(mock_weather_response)
     end
   end
